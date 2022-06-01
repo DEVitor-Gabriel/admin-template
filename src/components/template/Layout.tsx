@@ -12,9 +12,10 @@ interface LayoutProps{
 export function Layout(props: LayoutProps){
     return (
         <div className={`
+            dark
             flex
             h-screen
-            w-scree
+            w-screen
         `}>
             <MenuLateral />
             <div className={`
@@ -22,7 +23,7 @@ export function Layout(props: LayoutProps){
                 flex-col
                 w-full
                 p-7
-                bg-gray-300
+                bg-gray-300 dark:bg-gray-800
             `}>      
                 <Header title={props.title} subtitle={props.subtitle}/>
                 <Content>
