@@ -4,7 +4,7 @@ interface ContentProps{
 
 export function Content(props: ContentProps){
     return (
-        <div>
+        <div className="mt-8">
             {props.children}
         </div>
     )
