@@ -1,6 +1,7 @@
 import { MenuLateral  } from './MenuLateral'
 import { Header  } from './Header'
 import { Content  } from './Content'
+import useAppData from '../../data/hook/useAppData'
 
 
 interface LayoutProps{
@@ -10,9 +11,11 @@ interface LayoutProps{
 }
 
 export function Layout(props: LayoutProps){
+    const dados = useAppData()
+
     return (
         <div className={`
-            dark
+            ${dados.theme}
             flex
             h-screen
             w-screen
