@@ -1,21 +1,26 @@
+import { Title } from "./Title"
+import { ButtonSwitchTheme } from "./ButtonSwitchTheme"
+import useAppData from "../../data/hook/useAppData"
+
 interface HeaderProps{
     title: string
     subtitle: string
 }
 
 export function Header(props: HeaderProps){
+    const { theme, switchTheme } = useAppData()
+
     return (
-        <div>
-            <h1 className={`
-                font-black text-3xl text-gray-900 dark:text-gray-100
+        <div className={`
+            flex
+        `}>
+            <Title title={props.title} subtitle={props.subtitle}/>
+            <div className={`
+                flex flex-grow justify-end
             `}>
-                {props.title}
-            </h1>
-            <h2 className={`
-                font-light text-sm text-gray-600 dark:text-gray-300
-            `}>
-                {props.subtitle}
-            </h2>
+                <ButtonSwitchTheme theme={theme} switchTheme={switchTheme}/>
+            </div>
         </div>
+        
     )
 }

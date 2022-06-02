@@ -5,13 +5,12 @@ import useAppData from '../data/hook/useAppData'
 
 const notifications: NextPage = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const {theme, switch_theme} = useAppData()
+  const {theme, switchTheme} = useAppData()
 
   return (
     <div>
       <Layout title='Notificações' subtitle='Construindo Notificações...'>
-        <h3>{theme}</h3>
-        <button onClick={switch_theme}>Alternar</button>
+        <button onClick={switchTheme}>Alternar</button>
       </Layout>
     </div>
   )

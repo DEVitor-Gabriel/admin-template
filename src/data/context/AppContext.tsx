@@ -4,7 +4,7 @@ type Theme  = 'dark' | ''
 
 interface AppContextProps{
     theme?: Theme;
-    switch_theme?: () => void;
+    switchTheme?: () => void;
 }
 
 interface AppProviderProps{
@@ -16,14 +16,14 @@ const AppContext = createContext<AppContextProps>({})
 export function AppProvider(props:AppProviderProps){
     const [theme, setTheme] = useState<Theme>('dark')
 
-    function switch_theme(){
+    function switchTheme(){
         setTheme(theme === '' ? 'dark' : '')
     }
 
     return(
         <AppContext.Provider value={{
             theme,
-            switch_theme
+            switchTheme
         }}>
             {props.children}
         </AppContext.Provider>
