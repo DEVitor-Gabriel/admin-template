@@ -3,8 +3,10 @@ import type { NextPage } from 'next'
 import { useState } from 'react'
 import { AuthInput } from '../components/auth/AuthInput'
 import { IconWarning } from '../components/icons'
+import useAuth from '../data/hook/useAuth'
 
 const adjustments: NextPage = () => {
+    const { user, loginGoogle } = useAuth()
     const [ error, setError ] = useState(null)
     const [ mail, setMail ] = useState('')
     const [ password, setPassword ] = useState('')
@@ -77,7 +79,7 @@ const adjustments: NextPage = () => {
 
                     <hr className='my-6 border-gray-300 w-full'/>
 
-                    <button onClick={submit} className={`
+                    <button onClick={loginGoogle} className={`
                         w-full bg-red-500 hover:bg-red-400
                         text-white rounded-lg px-4 py-3
                     `}>
