@@ -1,7 +1,7 @@
 import { IconMoon, IconSun } from "../icons";
 
 interface ButtonSwitchThemeProps{
-    theme?: string;
+    theme?: string | null;
     switchTheme?: () => void;
 }
 
