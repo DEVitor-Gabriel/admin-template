@@ -6,7 +6,7 @@ import { IconWarning } from '../components/icons'
 import useAuth from '../data/hook/useAuth'
 
 const adjustments: NextPage = () => {
-    const { user, loginGoogle } = useAuth()
+    const { login, register, loginGoogle } = useAuth()
     const [ error, setError ] = useState(null)
     const [ mail, setMail ] = useState('')
     const [ password, setPassword ] = useState('')
@@ -17,14 +17,16 @@ const adjustments: NextPage = () => {
         setTimeout(() => setError(null), seconds * 1000)
     }
 
-    function submit(){
-        if (mode === 'login'){
-            console.log('login')
-            displayError('Erro no Login')
-
-        } else {
-            console.log('register')
-            displayError('Erro no Cadastro')
+    async function submit(){
+        try {
+            if (mode === 'login'){
+                await login(mail, password)
+    
+            } else {
+                await register(mail, password)
+            }   
+        } catch(e: any) {
+            displayError(e.message)
         }
     }
 

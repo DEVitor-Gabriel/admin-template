@@ -9,13 +9,18 @@ interface AuthContextProps {
     loading?: boolean
     loginGoogle?: () => Promise<void>
     logout?: () => void
+    login: (email: string, password:string) => any
+    register: (email: string, password:string) => any
 }
 
 interface AuthProviderProps {
     children?: any
 }
 
-const AuthContext = createContext<AuthContextProps>({})
+const AuthContext = createContext<AuthContextProps>({
+    login: (email: string, password:string) => {},
+    register: (email: string, password:string) => {}
+})
 
 async function userNormalize(userFirebase: firebase.User) : Promise<User>{
     const token = await userFirebase.getIdToken()
@@ -59,6 +64,34 @@ export function AuthProvider(props: AuthProviderProps){
         }
     }
 
+    async function login(email : string, password: string){
+        try {
+            setLoading(true)
+            const resp = await firebase.auth().signInWithEmailAndPassword(email, password)
+    
+            if(resp.user?.email){
+                await configSession(resp.user)
+                Router.push('/')
+            }
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    async function register(email : string, password: string){
+        try {
+            setLoading(true)
+            const resp = await firebase.auth().createUserWithEmailAndPassword(email, password)
+    
+            if(resp.user?.email){
+                await configSession(resp.user)
+                Router.push('/')
+            }
+        } finally {
+            setLoading(false)
+        }
+    }
+
     async function loginGoogle(){
         try {
             setLoading(true)
@@ -67,7 +100,7 @@ export function AuthProvider(props: AuthProviderProps){
             )
     
             if(resp.user?.email){
-                configSession(resp.user)
+                await configSession(resp.user)
                 Router.push('/')
             }
         } finally {
@@ -97,9 +130,12 @@ export function AuthProvider(props: AuthProviderProps){
     return (
         <AuthContext.Provider value={{
             user,
+            loading,
+            login,
+            register,
             loginGoogle,
             logout,
-            loading
+            
         }}>
             {props.children}
         </AuthContext.Provider>
